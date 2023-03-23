@@ -58,22 +58,19 @@ let topMovies = [
     }    
 ];
 
-// GET requests
+app.get('/movies', (req, res) => {
+  res.json(topMovies);
+});
+
 app.get('/', (req, res) => {
-  res.send('Welcome to myFlix!');
+  res.send('This is my practice for backend development.');
 });
 
-app.get('/movies', (req, res) => {                  
-    res.json(topMovies);
-});
+app.use(express.static('public'));
 
-// Morgan middleware error handling function
+app.use(morgan('common'));
+
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  res.status(500).send('Error');
-});
-// Port 8080 listen request
-
-app.listen(8080, () => {
-  console.log('Your app is listening to port 8080.');
+  res.status(500).send('Something went wrong!');
 });
